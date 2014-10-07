@@ -7,9 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ToDoItem.h"
 
 @interface ViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UITableView *myTableView;
+
+@property (strong, nonatomic) IBOutlet UITextField *todoText;
+
+@property (strong, nonatomic) IBOutlet UIButton *editButton;
+
+@property NSMutableArray *todoArray;
+
+@property ToDoItem *toDoItem;
+
+@property BOOL editButtonToggled;
 
 @end
 
