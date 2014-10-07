@@ -44,13 +44,13 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId" forIndexPath:indexPath];
 
     ToDoItem *item = [self.todoArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = [item itemText];
+    cell.textLabel.text = item.itemText;
     if (item.completed) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }else {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    cell.backgroundColor = [self.priorityColors objectAtIndex:indexPath.row];
+    cell.backgroundColor = item.priority;
 
     return cell;
 }
@@ -61,12 +61,11 @@
         ToDoItem *item = [[ToDoItem alloc]init];
         item.itemText = [self.todoText text];
         item.completed = NO;
-        item.priority = 0;
+        item.priority = [UIColor greenColor];
 
         [self.todoArray addObject:item];
 
         self.todoText.text = @"";
-        [self priorityColorArray];
         [self.myTableView reloadData];
     }
 }
@@ -87,7 +86,6 @@
             }
         }
         [self.todoArray removeObjectsInArray:toDelete];
-        [self priorityColorArray];
         [self.myTableView reloadData];
     }
 }
@@ -111,36 +109,15 @@
             [self.todoArray removeObject:itemSelected];
         }else if (gestureRecongizer.direction == UISwipeGestureRecognizerDirectionRight) {
             //Change background color Action
-            //NSLog(@"right swipe, priority: %d",itemSelected.priority);
-            if (itemSelected.priority == 0 ) {
-                itemSelected.priority = 1;
-            }else if (itemSelected.priority == 1 ) {
-                itemSelected.priority = 2;
-            }else if (itemSelected.priority == 2 ) {
-                itemSelected.priority = 0;
-            }else{
-                itemSelected.priority = 0;
+            if ([itemSelected.priority isEqual:[UIColor greenColor]] ) {
+                itemSelected.priority = [UIColor yellowColor];
+            }else if ([itemSelected.priority isEqual:[UIColor yellowColor]] ) {
+                itemSelected.priority = [UIColor redColor];
+            }else if ([itemSelected.priority isEqual:[UIColor redColor]] ) {
+                itemSelected.priority = [UIColor greenColor];
             }
         }
         [self.myTableView reloadData];
-    }
-}
-
-- (void) priorityColorArray{
-    [self.priorityColors removeAllObjects];
-    UIColor *color;
-
-    for (ToDoItem *item in self.todoArray) {
-        if (item.priority == 0 ) {
-            color = [UIColor greenColor];
-        }else if (item.priority == 1 ) {
-            color = [UIColor yellowColor];
-        }else if (item.priority == 2 ) {
-            color = [UIColor redColor];
-        }else{
-            color = [UIColor greenColor];
-        }
-        [self.priorityColors addObject:color];
     }
 }
 

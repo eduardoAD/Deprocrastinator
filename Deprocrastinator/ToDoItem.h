@@ -11,5 +11,5 @@
 @interface ToDoItem : NSObject
 @property NSString *itemText;
 @property BOOL completed;
-@property int priority;
+@property UIColor *priority;
 @end
