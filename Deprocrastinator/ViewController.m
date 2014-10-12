@@ -10,7 +10,7 @@
 #import "ToDoItem.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
-@property NSMutableArray *priorityColors;
+
 @end
 
 @implementation ViewController
